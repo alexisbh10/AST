@@ -1,0 +1,123 @@
+<div class="wrapper">
+    <app-sidebar style="background: white !important"></app-sidebar>
+    <main class="content">
+        <div class="container-fluid">
+
+            <div class="header">
+                <h1 class="header-title">
+                    Apartado de productos
+                </h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a [routerLink]="['/productos']">Productos</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Registro</li>
+                    </ol>
+                </nav>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Registro</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Categoría</a>
+                        </li>
+                      </ul>
+                    <div class="col-12 col-lg-13" *ngIf="success_message">
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <div class="alert-message">
+                                {{success_message}}
+                            </div>
+                        </div>
+
+                        <button type="button" class="close"  (click)="error_alert()" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">x</span>
+                        </button>
+                    </div>
+                    <div class="col-12 col-lg-13" *ngIf="error_message">
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <div class="alert-message">
+                                {{error_message}}
+                            </div>
+                        </div>
+
+                        <button type="button" class="close"  (click)="error_alert()" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">x</span>
+                        </button>
+                    </div>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="card">
+                                <div class="card-body">
+                                <form #productoForm="ngForm" (ngSubmit)="onSubmit(productoForm)">
+                                    <div class="row mt-4">
+                                        <div class="col-lg-8">
+                                            <div class="row">
+                                                <div class="col-lg-9 form-group">
+                                                    <label><b>Titulo del producto</b></label>
+                                                    <input type="text" class="form-control" autocomplete="new-text" placeholder="Titulo del producto" #titulo="ngModel" name="titulo" [(ngModel)]="producto.titulo" required>
+                                                </div>
+                                                <div class="col-lg-3 form-group">
+                                                    <label><b>Categoría</b></label>
+                                                    <select class="form-control" autocomplete="new-text" placeholder="ID de la categoría" #idcategoria="ngModel" name="idcategoria" [(ngModel)]="producto.idcategoria" required>
+                                                        <option value="" disabled> SELECCIONAR </option>
+                                                        <option value="{{item._id}}" *ngFor="let item of categorias">{{item.titulo.toUpperCase()}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-3 form-group">
+                                                    <label><b>Stock</b></label>
+                                                    <input type="number" class="form-control" autocomplete="new-text" #stock="ngModel" name="stock" [(ngModel)]="producto.stock" required>
+                                                </div>
+                                                <div class="col-lg-3 form-group">
+                                                    <label><b>Precio de compra</b></label>
+                                                    <input type="number"  class="form-control" autocomplete="new-text" #precio_compra="ngModel" name="precio_compra" [(ngModel)]="producto.precio_compra" required>
+                                                </div>
+                                                <div class="col-lg-3 form-group">
+                                                    <label><b>Precio de venta</b></label>
+                                                    <input type="number" class="form-control" autocomplete="new-text" #precio_venta="ngModel" name="precio_venta" [(ngModel)]="producto.precio_venta" required>
+                                                </div>
+                                                <div class="col-lg-3 form-group">
+                                                    <label><b>Puntos</b></label>
+                                                    <input type="number" name="" class="form-control" autocomplete="new-text" #puntos="ngModel" name="puntos" [(ngModel)]="producto.puntos" required>
+                                                </div>
+                                                <div class="col-lg-6 form-group">
+                                                    <label><b>Descripción</b></label>
+                                                    <textarea class="form-control" autocomplete="new-text" placeholder="Descripción" #descripcion="ngModel" name="descripcion" [(ngModel)]="producto.descripcion" required></textarea>
+                                                </div>
+                                                <div class="col-lg-12 form-group">
+                                                    <button class="btn btn-primary btn-lg" type="submit">Registrar</button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="row">
+                                                <div class="col-lg-12 form-group">
+                                                    <div class="text-center">
+                                                        <label><b>Portada</b></label>
+                                                        <br>
+                                                        <img alt="Chris Wood" [src]=" img_selected || '../../../../assets/img/default.jpg'" class="rounded-circle img-responsive mt-2" width="128" height="128">
+                                                        <div class="mt-2">
+                                                            <input class="btn btn-primary" (change)="imgSelected($event)" type="file"><i class="fas fa-upload"></i> Upload
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>   
+                                </form>
+                            </div>
+                        </div>
+                     </div>
+                    </div>
+                </div>
+            </div>
+
+            
+
+        </div>
+    </main>
+</div>
